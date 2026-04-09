@@ -32,7 +32,7 @@ namespace RestaurantDesktopApp
             if (dgvTables.SelectedRows.Count > 0 && cmbStatus.SelectedItem != null)
             {
                 int tableId = Convert.ToInt32(dgvTables.SelectedRows[0].Cells["TableID"].Value);
-                string newStatus = cmbStatus.SelectedItem.ToString();
+                string newStatus = cmbStatus.SelectedItem?.ToString() ?? "Available";
 
                 try
                 {
@@ -42,7 +42,7 @@ namespace RestaurantDesktopApp
                     cmd.Parameters.AddWithValue("@tid", tableId);
                     cmd.ExecuteNonQuery();
                     con.Close();
-                    MessageBox.Show("Table status updated!");
+                    UIHelper.ShowToast("Table status updated!");
                     LoadTables();
                 }
                 catch (Exception ex)

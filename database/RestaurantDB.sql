@@ -24,7 +24,8 @@ CREATE TABLE MenuItems (
     ItemID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100) NOT NULL,
     Price DECIMAL(10, 2) NOT NULL,
-    Category VARCHAR(50)
+    Category VARCHAR(50),
+    ImagePath VARCHAR(255)
 );
 
 CREATE TABLE Orders (
@@ -58,4 +59,12 @@ CREATE TABLE Payments (
 
 -- Seed initial data
 INSERT INTO Tables (Status) VALUES ('Available'), ('Available'), ('Available'), ('Available'), ('Available');
-INSERT INTO MenuItems (Name, Price, Category) VALUES ('Burger', 150.00, 'Main'), ('Pizza', 250.00, 'Main'), ('Coke', 50.00, 'Drink');
+INSERT INTO MenuItems (Name, Price, Category, ImagePath) VALUES 
+('Premium Burger', 150.00, 'Main', 'Resources/burger.png'),
+('Pizza Margherita', 250.00, 'Main', 'Resources/logo.png'), 
+('Pasta Alfredo', 180.00, 'Main', 'Resources/logo.png'),
+('Fresh Coke', 50.00, 'Drink', 'Resources/logo.png');
+INSERT INTO Users (Name, Role, Username, Password) VALUES 
+('Administrator', 'Admin', 'admin', 'admin123'),
+('Staff User', 'User', 'user', 'user123');
+

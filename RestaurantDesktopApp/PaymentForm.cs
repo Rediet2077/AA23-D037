@@ -31,8 +31,17 @@ namespace RestaurantDesktopApp
         {
             if (dgvPendingOrders.SelectedRows.Count > 0)
             {
-                int orderId = Convert.ToInt32(dgvPendingOrders.SelectedRows[0].Cells["OrderID"].Value);
-                decimal amount = Convert.ToDecimal(dgvPendingOrders.SelectedRows[0].Cells["TotalAmount"].Value);
+                var cellId = dgvPendingOrders.SelectedRows[0].Cells["OrderID"].Value;
+                var cellAmt = dgvPendingOrders.SelectedRows[0].Cells["TotalAmount"].Value;
+
+                if (cellId == null || cellId == DBNull.Value || cellAmt == null || cellAmt == DBNull.Value)
+                {
+                    MessageBox.Show("Selected order data is invalid.");
+                    return;
+                }
+
+                int orderId = Convert.ToInt32(cellId);
+                decimal amount = Convert.ToDecimal(cellAmt);
 
                 try
                 {
@@ -58,7 +67,7 @@ namespace RestaurantDesktopApp
                         cmdTable.ExecuteNonQuery();
 
                         trans.Commit();
-                        MessageBox.Show($"Payment of {amount:N2} processed successfully!\nReceipt printed (Simulated).");
+                        UIHelper.ShowToast("Payment Processed Successfully!");
                         LoadPendingOrders();
                     }
                     catch (Exception ex)
